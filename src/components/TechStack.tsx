@@ -11,18 +11,33 @@ import {
   RapierRigidBody,
 } from "@react-three/rapier";
 
-const textureLoader = new THREE.TextureLoader();
-const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
-  "/images/javascript.webp",
+const labels = [
+  "n8n", "Make", "OpenAI", "Gemini", "Claude", "11Labs", "Cursor", 
+  "Midjourney", "Runway", "Sora", "LangGraph", "LangChain", "Zephyr", "HuggingFace"
 ];
-const textures = imageUrls.map((url) => textureLoader.load(url));
+
+const createTextTexture = (text: string) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+  const context = canvas.getContext("2d")!;
+  
+  // Background
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 512, 512);
+  
+  // Text
+  context.font = "bold 80px Geist, sans-serif";
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.fillStyle = "black";
+  context.fillText(text, 256, 256);
+  
+  const texture = new THREE.CanvasTexture(canvas);
+  return texture;
+};
+
+const textures = labels.map(label => createTextTexture(label));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
