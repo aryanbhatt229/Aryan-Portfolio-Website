@@ -6,9 +6,7 @@ const About = () => {
       <div className="about-me">
         <h3 className="title">About Me</h3>
         <p className="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic quis
-          dolores numquam iusto Ratione earum ducimus autem id iure pariatur
-          dolorum quae maiores.
+          I'm an AI Growth enthusiast turning cutting-edge tools into practical business solutions. With hands-on experience in AI agents, automation workflows, and Generative Engine Optimization, I'm on a mission to make AI work smarter for brands and businesses.
         </p>
       </div>
     </div>

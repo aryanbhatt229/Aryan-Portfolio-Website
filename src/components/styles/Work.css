@@ -13,6 +13,8 @@
   will-change: transform;
 }
 .work-container {
+  width: var(--cWidth);
+  max-width: var(--cMaxWidth);
   margin: auto;
   display: flex;
   flex-direction: column;

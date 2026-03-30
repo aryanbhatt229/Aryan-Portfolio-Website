@@ -6,46 +6,73 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
+const myProjects = [
+  {
+    name: "Markgrid – GEO Platform",
+    category: "AI / Brand Intelligence",
+    tools: "Prompt Engineering, OpenAI, AI Agents"
+  },
+  {
+    name: "AI Social Media Automation",
+    category: "Automation / Content",
+    tools: "Make, n8n, OpenAI, Google Sheets"
+  },
+  {
+    name: "Brand Research & Intelligence Tool",
+    category: "AI / Research",
+    tools: "Prompt Engineering, OpenAI, AI Agents"
+  },
+  {
+    name: "AI Chatbots & Workflow Automation",
+    category: "AI / Automation",
+    tools: "Conversational AI, OpenAI"
+  },
+  {
+    name: "AI Content Research & Idea Engine",
+    category: "AI / Content Strategy",
+    tools: "OpenAI, Make, n8n, Google Sheets"
+  },
+  {
+    name: "AI-Powered Content Automation",
+    category: "Automation",
+    tools: "OpenAI, Canva, Google Sheets"
+  }
+];
+
 const Work = () => {
   useGSAP(() => {
-  let translateX: number = 0;
+    const workFlex = document.querySelector(".work-flex") as HTMLElement;
+    const boxes = document.querySelectorAll(".work-box");
 
-  function setTranslateX() {
-    const box = document.getElementsByClassName("work-box");
-    const rectLeft = document
-      .querySelector(".work-container")!
-      .getBoundingClientRect().left;
-    const rect = box[0].getBoundingClientRect();
-    const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-    let padding: number =
-      parseInt(window.getComputedStyle(box[0]).padding) / 2;
-    translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
-  }
+    const getScrollAmount = () => {
+      let totalWidth = 0;
+      boxes.forEach((box: any) => {
+        totalWidth += box.offsetWidth;
+      });
+      // The container has a left margin offset and padding. We calculate exact distance to slide the last box into view fully.
+      // Offset by the window width so it stops beautifully when the right edge is reached.
+      return totalWidth - window.innerWidth + 250; 
+    };
 
-  setTranslateX();
+    let tween = gsap.to(workFlex, {
+      x: () => -getScrollAmount(),
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".work-section",
+        start: "top top",
+        end: () => `+=${getScrollAmount()}`,
+        scrub: 1,
+        pin: true,
+        invalidateOnRefresh: true,
+        id: "work"
+      }
+    });
 
-  let timeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".work-section",
-      start: "top top",
-      end: `+=${translateX}`, // Use actual scroll width
-      scrub: true,
-      pin: true,
-      id: "work",
-    },
-  });
-
-  timeline.to(".work-flex", {
-    x: -translateX,
-    ease: "none",
-  });
-
-  // Clean up (optional, good practice)
-  return () => {
-    timeline.kill();
-    ScrollTrigger.getById("work")?.kill();
-  };
-}, []);
+    return () => {
+      tween.kill();
+      ScrollTrigger.getById("work")?.kill();
+    };
+  }, []);
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
@@ -53,19 +80,19 @@ const Work = () => {
           My <span>Work</span>
         </h2>
         <div className="work-flex">
-          {[...Array(6)].map((_value, index) => (
+          {myProjects.map((project, index) => (
             <div className="work-box" key={index}>
               <div className="work-info">
                 <div className="work-title">
                   <h3>0{index + 1}</h3>
 
                   <div>
-                    <h4>Project Name</h4>
-                    <p>Category</p>
+                    <h4>{project.name}</h4>
+                    <p>{project.category}</p>
                   </div>
                 </div>
                 <h4>Tools and features</h4>
-                <p>Javascript, TypeScript, React, Threejs</p>
+                <p>{project.tools}</p>
               </div>
               <WorkImage image="/images/placeholder.webp" alt="" />
             </div>

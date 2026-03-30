@@ -42,15 +42,28 @@ const Navbar = () => {
   return (
     <>
       <div className="header">
-        <a href="/#" className="navbar-title" data-cursor="disable">
-          Logo
+        <a 
+          href="/#" 
+          className="navbar-title" 
+          data-cursor="disable"
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 800,
+            fontSize: "1.4rem",
+            letterSpacing: "2px",
+            background: "linear-gradient(to right, #a855f7, #7c3aed)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent"
+          }}
+        >
+          AB
         </a>
         <a
-          href="mailto:example@mail.com"
+          href="mailto:bhattaryan226@gmail.com"
           className="navbar-connect"
           data-cursor="disable"
         >
-          example@mail.com
+          bhattaryan226@gmail.com
         </a>
         <ul>
           <li>
